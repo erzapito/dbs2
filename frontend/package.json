@@ -1,0 +1,22 @@
+{
+  "name": "dbs",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "ts-loader": "^5.4.3",
+    "typescript": "^3.4.4",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  }
+}
