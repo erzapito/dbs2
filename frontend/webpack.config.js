@@ -1,8 +1,9 @@
 var path = require('path')
 var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const mockedWebpackFunction = require('./mockConfig')
 
-module.exports = {
+module.exports = [{
   mode: 'development',
   entry: './src/index.ts',
   output: {
@@ -48,8 +49,7 @@ module.exports = {
     }
   },
   devServer: {
-    //historyApiFallback: true,
-    //noInfo: true
+    before: mockedWebpackFunction
   },
   performance: {
     hints: false
@@ -58,7 +58,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
   ],
-}
+}];
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
