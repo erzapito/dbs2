@@ -1,8 +1,9 @@
-
 var path = require('path')
 var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -14,7 +15,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
+        /*options: {
           loaders: {
             // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
             // the "scss" and "sass" values for the lang attribute to the right configs here.
@@ -23,17 +24,15 @@ module.exports = {
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
           }
           // other vue-loader options go here
-        }
-      },
-      {
+        }*/
+      },{
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/],
         }
-      },
-      {
+      },{
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
@@ -49,13 +48,16 @@ module.exports = {
     }
   },
   devServer: {
-    historyApiFallback: true,
-    noInfo: true
+    //historyApiFallback: true,
+    //noInfo: true
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -75,6 +77,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
   ])
 }

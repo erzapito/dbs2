@@ -1,16 +1,13 @@
-import Vue from "vue";
-import HelloComponent from "./components/hello";
+import Vue from 'vue'
+import App from './app.vue'
+import router from './components/router'
 
-let v = new Vue({
-    el: "#app",
-    template: `
-    <div>
-        Name: <input v-model="name" type="text">
-        <hello-component :name="name" :initialEnthusiasm="5" />
-    </div>
-    `,
-    data: { name: "World" },
-    components: {
-        HelloComponent
-    }
-});
+Vue.config.productionTip = false
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
+})
