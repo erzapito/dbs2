@@ -14,32 +14,32 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import axios from 'axios'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import axios from 'axios';
 
-import Paginator from '../components/paginator.vue'
-import SeriesResponse from '../api/SeriesResponse'
+import Paginator from '../components/paginator.vue';
+import SeriesResponse from '../api/SeriesResponse';
 
 @Component({
     components: {
-        'paginator': Paginator
-    }
+        paginator: Paginator,
+    },
 })
 export default class SeriesCtrl extends Vue {
-  message: string = 'Welcome to Your Vue.js App';
-  currentPage: number = 0;
-  info: SeriesResponse = new SeriesResponse();
+  public message: string = 'Welcome to Your Vue.js App';
+  public currentPage: number = 0;
+  public info: SeriesResponse = new SeriesResponse();
 
 
-  mounted() {
+  public mounted() {
     this.loadCurrentPage();
   }
 
-  loadCurrentPage() {
+  public loadCurrentPage() {
     axios
       .get<SeriesResponse>('/api/series')
-      .then(response => (this.info = response.data))
+      .then((response) => (this.info = response.data));
   }
 
 }
