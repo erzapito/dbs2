@@ -34,9 +34,5 @@ export default class Paginator extends Vue {
      return Math.ceil( this.totalItems / this.pageSize );
   }
 
-  public mounted() {
-
-  }
-
 }
 </script>

@@ -8,8 +8,8 @@ class SeriesResponse {
 
     constructor() {
         this.id = null;
-         this.capitulos = null;
-         this.categoria = null;
+        this.capitulos = null;
+        this.categoria = null;
         this.fansub = null;
         this.idioma = null;
         this.name = null;
