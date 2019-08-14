@@ -9,13 +9,16 @@
             {{item.name}}
         </li>
     </ul>
-    <paginator v-bind:page="5" v-bind:page-size="10" v-bind:total-items="100" />
+    <paginator
+        v-bind:page="currentPage"
+        v-bind:page-size="10"
+        v-bind:total-items="info.total"
+        v-on:paginator-page-change="setPage($event)"/>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 
 import Paginator from '../components/paginator.vue';
@@ -27,19 +30,29 @@ import SeriesResponse from '../api/SeriesResponse';
     },
 })
 export default class SeriesCtrl extends Vue {
-  public message: string = 'Welcome to Your Vue.js App';
-  public currentPage: number = 0;
-  public info: SeriesResponse = new SeriesResponse();
 
+  private currentPage: number = 1;
+  private info: SeriesResponse = new SeriesResponse();
 
   public mounted() {
     this.loadCurrentPage();
   }
 
+  public setPage(page: number) {
+    this.currentPage = page;
+    this.loadCurrentPage();
+  }
+
   public loadCurrentPage() {
     axios
-      .get<SeriesResponse>('/api/series')
-      .then((response) => (this.info = response.data));
+      .get<SeriesResponse>('/api/series', {
+            params : {
+                page : this.currentPage - 1,
+            },
+        })
+      .then((response) => {
+        this.info = response.data;
+      });
   }
 
 }
