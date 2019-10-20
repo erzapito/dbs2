@@ -1,4 +1,4 @@
-[{
+module.exports = {
     "total" : 11,
     "page" : 0,
     "items" : [{
@@ -44,19 +44,4 @@
         "idioma": "es",
         "name": "test series 6"
    }]
-},{
-    "total" : 11,
-    "page" : 1,
-    "items": [{
-        "id": 7,
-        "capitulos": "1-24",
-        "categoria": "Descargado",
-        "fansub": "HorribleSubs",
-        "idioma": "es",
-        "name": "test series 7"
-   }]
-},{
-    "total" : 11,
-    "page" : 2,
-    "items": []
-}]
+};

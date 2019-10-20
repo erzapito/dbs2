@@ -1,13 +1,15 @@
-<style>
-
-.paginator-cell{
-  width: 20px;
-  height: 20px;
-  background: #CCC;
-  margin: 5px;
+<script>
+export default {
+    name: 'Paginator',
+    props: ['page','pageSize','totalItems'],
+   
+    computed: {
+        totalPages: function() {
+            return Math.ceil(this.totalItems / this.pageSize);
+        },
+    },
 }
-
-</style>
+</script>
 
 <template>
     <div class="paginator" v-if="totalPages > 1">
@@ -28,27 +30,3 @@
         </span>
     </div>
 </template>
-
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-
-@Component({
-    name: 'paginator',
-})
-export default class Paginator extends Vue {
-
-  @Prop({default: 1})
-  public page: number;
-
-  @Prop({default: 0})
-  public totalItems: number;
-
-  @Prop({default: 10})
-  public pageSize: number;
-
-  get totalPages() {
-     return Math.ceil( this.totalItems / this.pageSize );
-  }
-
-}
-</script>

@@ -1,40 +1,34 @@
 {
-  "name": "dbs",
-  "version": "2.0.0",
+  "name": "frontend",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit  --coverage",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit --coverage",
-    "test:watch": "vue-cli-service test:unit --watch"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@types/moxios": "^0.4.8",
     "axios": "^0.19.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.1.2",
+    "moxios": "^0.4.0",
     "vue": "^2.6.10",
-    "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.1.0",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.6"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.4",
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.8.0",
-    "@vue/cli-plugin-typescript": "^3.8.0",
-    "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-e2e-nightwatch": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-router": "^4.0.0",
+    "@vue/cli-plugin-unit-jest": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
-    "babel-core": "7.0.0-bridge.0",
-    "jest-serializer-vue": "^2.0.2",
-    "moxios": "^0.4.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.1.0",
-    "ts-jest": "^23.0.0",
-    "typescript": "^3.4.3",
-    "vue-server-renderer": "^2.6.10",
+    "babel-eslint": "^10.0.1",
+    "chromedriver": "^77.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "geckodriver": "^1.16.2",
     "vue-template-compiler": "^2.6.10"
   }
 }

@@ -1,10 +1,11 @@
 .DS_Store
 node_modules
 /dist
-/coverage
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
+/coverate
+/tests/e2e/reports/
+selenium-debug.log
+chromedriver.log
+geckodriver.log
 
 # local env files
 .env.local
