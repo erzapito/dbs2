@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 import Paginator from '../components/paginator.vue';
+import SeriesItem from '../components/series-item.vue';
 
 export default {
   name: 'SeriesController',
@@ -13,7 +14,8 @@ export default {
        }
   }),
   components: {
-    paginator: Paginator,
+    Paginator,
+    SeriesItem,
   },
   mounted: function(){
     this.loadCurrentPage();
@@ -44,7 +46,7 @@ export default {
     <h2>Series</h2>
     <ul>
         <li v-for="item in info.items" v-bind:key="item.id" >
-            {{ item.name }}
+            <series-item :item="item" />
         </li>
     </ul>
     <paginator
