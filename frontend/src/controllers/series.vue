@@ -8,6 +8,7 @@ export default {
   name: 'SeriesController',
   data: () => ({
     'currentPage': 1,
+    'newElement' : false,
     'info': {
         items: [],
         total: 0,
@@ -25,7 +26,7 @@ export default {
         this.currentPage = page;
         this.loadCurrentPage();
     },
-    loadCurrentPage: function(){
+    loadCurrentPage: function() {
         axios
           .get('/api/series', {
                 params : {
@@ -44,9 +45,20 @@ export default {
 <template>
   <div>
     <h2>Series</h2>
+
+    <div>
+        <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
+        <series-form
+            v-if="newElement"
+            :item="newitem"
+            v-on:series-saved="setPage(0)" />
+    </div>
+
     <ul>
         <li v-for="item in info.items" v-bind:key="item.id" >
-            <series-item :item="item" />
+            <series-item
+                :item="item"
+                v-on:reload-series="loadCurrentPage()" />
         </li>
     </ul>
     <paginator

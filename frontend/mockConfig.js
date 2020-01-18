@@ -4,7 +4,6 @@ const seriesResponse2 = require('./mocks/seriesResponse2');
 
 module.exports = function(app) {
     app.get('/api/series', function(req, res){
-        console.log( app );
         if (!req.query.page) {
             res.json(seriesResponse0);
         } else if (req.query.page == 0) {
