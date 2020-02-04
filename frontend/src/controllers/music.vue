@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Paginator from '../components/paginator.vue';
 import MusicItem from '../components/music-item.vue';
+import MusicForm from '../components/music-form.vue';
 
 export default {
   name: 'MusicController',
@@ -17,6 +18,7 @@ export default {
   components: {
     Paginator,
     MusicItem,
+    MusicForm
   },
   mounted: function(){
     this.loadCurrentPage();
@@ -27,8 +29,10 @@ export default {
         this.loadCurrentPage();
     },
     loadCurrentPage: function() {
+        this.newElement = false;
+        this.newItem = {};
         axios
-          .get('/api/musica', {
+          .get('/api/music', {
                 params : {
                     page : this.currentPage - 1,
                 },
@@ -50,7 +54,7 @@ export default {
         <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
         <music-form
             v-if="newElement"
-            :item="newitem"
+            :item="newItem"
             v-on:series-saved="setPage(0)" />
     </div>
 

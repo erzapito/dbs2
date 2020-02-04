@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Paginator from '../components/paginator.vue';
 import SeriesItem from '../components/series-item.vue';
+import SeriesForm from '../components/series-form.vue';
 
 export default {
   name: 'SeriesController',
@@ -17,6 +18,7 @@ export default {
   components: {
     Paginator,
     SeriesItem,
+    SeriesForm,
   },
   mounted: function(){
     this.loadCurrentPage();
@@ -27,6 +29,8 @@ export default {
         this.loadCurrentPage();
     },
     loadCurrentPage: function() {
+        this.newItem = {};
+        this.newElement = false;
         axios
           .get('/api/series', {
                 params : {
@@ -50,7 +54,7 @@ export default {
         <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
         <series-form
             v-if="newElement"
-            :item="newitem"
+            :item="newItem"
             v-on:series-saved="setPage(0)" />
     </div>
 

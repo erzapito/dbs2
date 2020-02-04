@@ -23,8 +23,31 @@ describe('music-form.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<div class=\"edit-form\"><edit-field-stub field=\"ARTIST\" label=\"artist\"></edit-field-stub> <edit-field-stub field=\"DISC\" label=\"disc\"></edit-field-stub> <button class=\"save\">Save</button> <button class=\"remove\">Delete</button></div>`);
+      expect(wrapper.html()).toBe(`<div class=\"edit-form\"><input class=\"music-helper\"> <edit-field-stub field=\"ARTIST\" label=\"artist\"></edit-field-stub> <edit-field-stub field=\"DISC\" label=\"disc\"></edit-field-stub> <button class=\"save\">Save</button> <button class=\"remove\">Delete</button></div>`);
       done();
+    });
+
+    it('helps on paste', async (done) => {
+        const item = {
+            "id": 1,
+            "artist": "ARTIST",
+            "disc": "DISC",
+        };
+        const wrapper = shallowMount(MusicForm,{
+            propsData: {
+                'item' : item,
+            }
+        });
+        const helper = wrapper.find('.music-helper');
+        helper.setValue( "ARTIST2 - DISC2" );
+        helper.trigger('change');
+        await wrapper.vm.$nextTick()
+        expect(wrapper.props().item).toEqual({
+            "id": 1,
+            "artist": "ARTIST2",
+            "disc": "DISC2",
+        });
+        done();
     });
 
     it('updates', async (done) => {
