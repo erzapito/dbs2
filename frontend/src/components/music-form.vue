@@ -13,6 +13,13 @@ export default {
     components: {
         EditField,
     },
+    watch: {
+        full: function(n){
+            const fields = n.split(' - ');
+            this.item.artist = fields[0].trim();
+            this.item.disc = fields[1].trim();
+        },
+    },
     methods: {
         save: function() {
             if (this.item.id) {
@@ -30,18 +37,13 @@ export default {
                 this.$emit('music-deleted',this.item);
             });
         },
-        fullChanged: function() {
-            const fields = this.full.split(' - ');
-            this.item.artist = fields[0];
-            this.item.disc = fields[1];
-        },
     }
 }
 </script>
 
 <template>
     <div class="edit-form" >
-        <input class="music-helper" v-model="full" v-on:change="fullChanged()"/>
+        <input class="music-helper" v-model="full"/>
 
         <edit-field label="artist" v-bind:field="item.artist" />
         <edit-field label="disc" v-bind:field="item.disc" />

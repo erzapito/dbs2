@@ -23,7 +23,7 @@ describe('music-form.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<div class=\"edit-form\"><input class=\"music-helper\"> <edit-field-stub field=\"ARTIST\" label=\"artist\"></edit-field-stub> <edit-field-stub field=\"DISC\" label=\"disc\"></edit-field-stub> <button class=\"save\">Save</button> <button class=\"remove\">Delete</button></div>`);
+      expect(wrapper.html()).toBe(`<div class="edit-form"><input class="music-helper"> <edit-field-stub field="ARTIST" label="artist"></edit-field-stub> <edit-field-stub field="DISC" label="disc"></edit-field-stub> <button class="save">Save</button> <button class="remove">Delete</button></div>`);
       done();
     });
 
