@@ -9,6 +9,7 @@ export default {
   name: 'SeriesController',
   data: () => ({
     'currentPage': 1,
+    'search' : '',
     'newElement' : false,
     'info': {
         items: [],
@@ -24,6 +25,12 @@ export default {
     this.loadCurrentPage();
   },
   methods: {
+    delayedLoad: function() {
+        if (this.delayedLoadVar) {
+            clearTimeout(this.delayedLoadVar);
+        }
+        this.delayedLoadVar = setTimeout( this.loadCurrentPage, 500);
+    },
     setPage: function(page) {
         this.currentPage = page;
         this.loadCurrentPage();
@@ -35,6 +42,7 @@ export default {
           .get('/api/series', {
                 params : {
                     page : this.currentPage - 1,
+                    search : this.search,
                 },
             })
           .then((response) => {
@@ -49,6 +57,10 @@ export default {
 <template>
   <div>
     <h2>Series</h2>
+
+    <div class="search">
+        <input type="text" v-model="search" v-on:keyup="delayedLoad()" />
+    </div>
 
     <div>
         <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>

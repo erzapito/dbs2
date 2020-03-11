@@ -5,6 +5,10 @@ import moxios from 'moxios';
 
 import seriesResponse from '@/../mocks/seriesResponse0';
 
+'use strict';
+
+//jest.useFakeTimers();
+
 describe('Series.vue', () => {
 
     beforeEach( () => {
@@ -17,7 +21,10 @@ describe('Series.vue', () => {
     });
 
     it('renders', (done) => {
+//        const callback = jest.fn();
+
         const wrapper = shallowMount(Series);
+        expect(wrapper.findAll('series-item-stub').length).toBe(0);
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
             request.respondWith({
@@ -25,20 +32,49 @@ describe('Series.vue', () => {
               response: seriesResponse,
             }).then(() => {
                 expect(wrapper.findAll('series-item-stub').length).toBe(6);
+                //wrapper.vm.$nextTick();
+               // callback();
                 done();
-            });
+            });//.finally(done);
         });
 
     });
 
     it('reloads on new page', (done) => {
+//        const callback = jest.fn();
+
         const wrapper = shallowMount(Series);
         wrapper.find(Paginator).vm.$emit('paginator-page-change', 2);
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
-            expect( request.config.params ).toEqual({ page: 1 });
+            expect( request.config.params ).toEqual({
+                page: 1,
+                search: '',
+            });
             done();
         });
+    });
+
+    it('reloads after page edit', (done) => {
+        jest.useFakeTimers();
+        //const callback = jest.fn();
+
+        const wrapper = shallowMount(Series);
+        const searchInput = wrapper.find(".search input");
+        searchInput.trigger('keyup');
+        expect(clearTimeout).toHaveBeenCalledTimes(0);
+        jest.runAllTimers();
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
+        searchInput.trigger('keyup');
+        expect(clearTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
+        done();
+        /*moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+            expect( request.config.params ).toEqual({ page: 1 });
+            done();
+            callback();
+        });*/
     });
 
 });
