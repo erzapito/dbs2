@@ -36,9 +36,27 @@ describe('Music.vue', () => {
         wrapper.find(Paginator).vm.$emit('paginator-page-change', 2);
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
-            expect( request.config.params ).toEqual({ page: 1 });
+            expect( request.config.params ).toEqual({
+                page: 1,
+                search: '',
+            });
             done();
         });
+    });
+
+    it('reloads after search edit', (done) => {
+        jest.useFakeTimers();
+
+        const wrapper = shallowMount(Music);
+        const searchInput = wrapper.find(".search input");
+        searchInput.trigger('keyup');
+        expect(clearTimeout).toHaveBeenCalledTimes(0);
+        jest.runAllTimers();
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
+        searchInput.trigger('keyup');
+        expect(clearTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
+        done();
     });
 
 });

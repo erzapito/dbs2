@@ -7,8 +7,6 @@ import seriesResponse from '@/../mocks/seriesResponse0';
 
 'use strict';
 
-//jest.useFakeTimers();
-
 describe('Series.vue', () => {
 
     beforeEach( () => {
@@ -21,8 +19,6 @@ describe('Series.vue', () => {
     });
 
     it('renders', (done) => {
-//        const callback = jest.fn();
-
         const wrapper = shallowMount(Series);
         expect(wrapper.findAll('series-item-stub').length).toBe(0);
         moxios.wait(() => {
@@ -41,8 +37,6 @@ describe('Series.vue', () => {
     });
 
     it('reloads on new page', (done) => {
-//        const callback = jest.fn();
-
         const wrapper = shallowMount(Series);
         wrapper.find(Paginator).vm.$emit('paginator-page-change', 2);
         moxios.wait(() => {
@@ -55,9 +49,8 @@ describe('Series.vue', () => {
         });
     });
 
-    it('reloads after page edit', (done) => {
+    it('reloads after search edit', (done) => {
         jest.useFakeTimers();
-        //const callback = jest.fn();
 
         const wrapper = shallowMount(Series);
         const searchInput = wrapper.find(".search input");
@@ -69,12 +62,6 @@ describe('Series.vue', () => {
         expect(clearTimeout).toHaveBeenCalledTimes(1);
         expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
         done();
-        /*moxios.wait(() => {
-            const request = moxios.requests.mostRecent();
-            expect( request.config.params ).toEqual({ page: 1 });
-            done();
-            callback();
-        });*/
     });
 
 });
