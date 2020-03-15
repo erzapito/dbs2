@@ -2,9 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeCtrl from './controllers/home';
 import SeriesCtrl from './controllers/series.vue';
-import MusicCtrl from './controllers/music';
-import BooksCtrl from './controllers/books';
-import WantedCtrl from './controllers/wanted';
+import MusicCtrl from './controllers/music.vue';
+import WantedCtrl from './controllers/wanted.vue';
 
 Vue.use(VueRouter);
 
@@ -13,7 +12,6 @@ const router = new VueRouter({
     { path: '/', component: HomeCtrl },
     { path: '/series', name: 'SeriesCtrl', component: SeriesCtrl },
     { path: '/music', component: MusicCtrl },
-    { path: '/books', component: BooksCtrl },
     { path: '/wanted', component: WantedCtrl },
   ],
 });

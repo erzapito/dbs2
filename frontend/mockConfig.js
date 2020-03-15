@@ -6,6 +6,8 @@ const musicResponse0 = require('./mocks/musicResponse0');
 const musicResponse1 = require('./mocks/musicResponse1');
 const musicResponse2 = require('./mocks/musicResponse2');
 
+const wantedResponse = require('./mocks/wantedResponse');
+
 module.exports = function(app) {
     // series
     app.get('/api/series', function(req, res){
@@ -49,5 +51,10 @@ module.exports = function(app) {
     });
     app.put('/api/music/*', function(req,res){
         res.json();
+    });
+
+    // wanted
+    app.get('/api/wanted', function(req, res) {
+        res.json(wantedResponse);
     });
 };

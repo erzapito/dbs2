@@ -4,7 +4,6 @@
         <ul>
           <li><router-link to="/series">Series</router-link></li>
           <li><router-link to="/music">Music</router-link></li>
-          <li><router-link to="/books">Books</router-link></li>
           <li><router-link to="/wanted">Wanted</router-link></li>
         </ul>
     </div>
