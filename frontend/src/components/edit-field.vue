@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="edit-field">
         <label>{{ label }}</label>
         <input v-model="field" />
     </div>

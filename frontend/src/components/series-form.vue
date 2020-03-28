@@ -34,10 +34,10 @@ export default {
 </script>
 
 <template>
-    <div class="edit-form" >
+    <div class="series-edit" >
         <edit-field label="name" v-bind:field="item.name" />
         <edit-field label="chapters" v-bind:field="item.capitulos" />
-        <edit-field label="category" v-bind:field="item.category" />
+        <edit-field label="category" v-bind:field="item.categoria" />
         <edit-field label="fansub" v-bind:field="item.fansub" />
         <edit-field label="idioma" v-bind:field="item.idioma" />
         <button class="save" v-on:click="save()">Save</button>

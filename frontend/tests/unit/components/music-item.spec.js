@@ -13,9 +13,9 @@ describe('music-item.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<div class="music-item">
-    1
-    <a href="javascript:void(0)">ARTIST - DISC</a> <!----></div>`);
+        expect(wrapper.find('.id').text()).toBe("1");
+        expect(wrapper.find('a.toggle').text()).toBe('ARTIST - DISC');
+        done();
       done();
     });
 
@@ -29,15 +29,12 @@ describe('music-item.vue', () => {
                 },
             }
         });
-        const link = wrapper.find('a');
+        expect(wrapper.findAll('music-form-stub').exists()).toBe(false);
+        const link = wrapper.find('a.toggle');
         link.trigger('click');
-
         await wrapper.vm.$nextTick()
-
-      expect(wrapper.html()).toBe(`<div class="music-item">
-    1
-    <a href="javascript:void(0)">ARTIST - DISC</a> <music-form-stub item="[object Object]"></music-form-stub></div>`);
-      done();
+        expect(wrapper.findAll('music-form-stub').exists()).toBe(true);
+        done();
     });
 
 });

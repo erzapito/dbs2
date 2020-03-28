@@ -17,8 +17,8 @@ export default {
 
 <template>
     <div class="series-item">
-        {{ item.id }}
-        <a href="javascript:void(0)" v-on:click="editing = !editing">{{ item.name }}</a>
+        <span class="id">{{ item.id }}</span>
+        <a class="toggle" href="javascript:void(0)" v-on:click="editing = !editing">{{ item.name }}</a>
         <series-form
             v-if="editing"
             :item="item"

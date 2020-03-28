@@ -27,11 +27,11 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h2>Wanteds</h2>
+  <div class="wanted-controller">
+    <div class="title">Wanteds</div>
 
-    <table>
-        <tr>
+    <table class="listing">
+        <tr class="headers">
             <th>Id</th>
             <th>Artist</th>
             <th>Disc</th>

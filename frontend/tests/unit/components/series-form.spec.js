@@ -26,8 +26,12 @@ describe('series-form.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<div class="edit-form"><edit-field-stub field="test series 1" label="name"></edit-field-stub> <edit-field-stub field="1-24" label="chapters"></edit-field-stub> <edit-field-stub label="category"></edit-field-stub> <edit-field-stub field="HorribleSubs" label="fansub"></edit-field-stub> <edit-field-stub field="es" label="idioma"></edit-field-stub> <button class="save">Save</button> <button class="remove">Delete</button></div>`);
-      done();
+        expect(wrapper.find('edit-field-stub[label=name]').attributes('field')).toBe('test series 1');
+        expect(wrapper.find('edit-field-stub[label=chapters]').attributes('field')).toBe('1-24');
+        expect(wrapper.find('edit-field-stub[label=category]').attributes('field')).toBe('Descargado');
+        expect(wrapper.find('edit-field-stub[label=fansub]').attributes('field')).toBe('HorribleSubs');
+        expect(wrapper.find('edit-field-stub[label=idioma]').attributes('field')).toBe('es');
+        done();
     });
 
     it('updates', async (done) => {

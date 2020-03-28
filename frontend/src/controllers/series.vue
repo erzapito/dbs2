@@ -55,14 +55,14 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h2>Series</h2>
+  <div class="series-controller">
+    <div class="title">Series</div>
 
     <div class="search">
         <input type="text" v-model="search" v-on:keyup="delayedLoad()" />
     </div>
 
-    <div>
+    <div class="new">
         <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
         <series-form
             v-if="newElement"
@@ -70,7 +70,7 @@ export default {
             v-on:series-saved="setPage(0)" />
     </div>
 
-    <ul>
+    <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >
             <series-item
                 :item="item"

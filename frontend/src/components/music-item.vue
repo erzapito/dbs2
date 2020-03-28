@@ -17,8 +17,8 @@ export default {
 
 <template>
     <div class="music-item">
-        {{ item.id }}
-        <a href="javascript:void(0)" v-on:click="editing = !editing">{{ item.artist }} - {{ item.disc }}</a>
+        <span class="id">{{ item.id }}</span>
+        <a class="toggle" href="javascript:void(0)" v-on:click="editing = !editing">{{ item.artist }} - {{ item.disc }}</a>
         <music-form
             v-if="editing"
             :item="item"

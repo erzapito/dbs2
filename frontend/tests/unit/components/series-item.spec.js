@@ -16,10 +16,9 @@ describe('series-item.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<div class="series-item">
-    1
-    <a href="javascript:void(0)">test series 1</a> <!----></div>`);
-      done();
+        expect(wrapper.find('.id').text()).toBe("1");
+        expect(wrapper.find('a.toggle').text()).toBe('test series 1');
+        done();
     });
 
     it('shows form after click', async (done) => {
@@ -35,15 +34,12 @@ describe('series-item.vue', () => {
                 },
             }
         });
-        const link = wrapper.find('a');
+        expect(wrapper.findAll('series-form-stub').exists()).toBe(false);
+        const link = wrapper.find('a.toggle');
         link.trigger('click');
-
         await wrapper.vm.$nextTick()
-
-      expect(wrapper.html()).toBe(`<div class="series-item">
-    1
-    <a href="javascript:void(0)">test series 1</a> <series-form-stub item="[object Object]"></series-form-stub></div>`);
-      done();
+        expect(wrapper.findAll('series-form-stub').exists()).toBe(true);
+        done();
     });
 
 });

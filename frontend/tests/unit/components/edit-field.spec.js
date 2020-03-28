@@ -13,7 +13,8 @@ describe('edit-field.vue', () => {
                 'field' : item.test
             }
         });
-        expect(wrapper.html()).toBe(`<div><label>TEST LABEL</label> <input></div>`);
+        expect(wrapper.findAll('label').exists()).toBe(true);
+        expect(wrapper.findAll('input').exists()).toBe(true);
         done();
     });
 

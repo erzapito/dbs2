@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-    <div class="edit-form" >
+    <div class="music-edit-form" >
         <input class="music-helper" v-model="full"/>
 
         <edit-field label="artist" v-bind:field="item.artist" />

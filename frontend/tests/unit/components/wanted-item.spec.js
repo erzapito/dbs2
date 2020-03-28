@@ -15,7 +15,13 @@ describe('wanted-item.vue', () => {
                 },
             }
         });
-      expect(wrapper.html()).toBe(`<tr class="wanted-item"><td class="id">1</td> <td class="artist">2</td> <td class="disc">3</td> <td class="weeks">4</td> <td class="done">true</td></tr>`);
+      expect(wrapper.html()).toBe(`<tr class="wanted-item">
+  <td class="id">1</td>
+  <td class="artist">2</td>
+  <td class="disc">3</td>
+  <td class="weeks">4</td>
+  <td class="done">true</td>
+</tr>`);
       done();
     });
 

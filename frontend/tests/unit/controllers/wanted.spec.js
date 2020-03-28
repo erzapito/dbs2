@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import Wanted from '@/controllers/wanted.vue';
-import Paginator from '@/components/paginator.vue';
 import moxios from 'moxios';
 
 import wantedResponse from '@/../mocks/wantedResponse';

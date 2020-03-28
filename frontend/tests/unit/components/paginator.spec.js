@@ -10,10 +10,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><!----> <!----> <!----> ' +
-            '<span class="paginator-cell">1</span> <span class="paginator-cell">' +
-            '<a href="javascript:void(0)">2</a></span> <span>...</span> ' +
-            '<span class="paginator-cell"><a href="javascript:void(0)">10</a></span></div>');
+        expect(wrapper.find('.first').exists()).toBe(false);
+        expect(wrapper.find('.separator.left').exists()).toBe(false);
+        expect(wrapper.find('.previous').exists()).toBe(false);
+        expect(wrapper.find('.current').text()).toBe("1");
+        expect(wrapper.find('.next').text()).toBe("2");
+        expect(wrapper.find('.separator.right').exists()).toBe(true);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 2', () => {
         const wrapper = shallowMount(Paginator, {
@@ -23,11 +26,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <!----> <!----> '+
-        '<span class="paginator-cell">2</span> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">3</a></span> <span>...</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">10</a></span></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(false);
+        expect(wrapper.find('.previous').exists()).toBe(false);
+        expect(wrapper.find('.current').text()).toBe("2");
+        expect(wrapper.find('.next').text()).toBe("3");
+        expect(wrapper.find('.separator.right').exists()).toBe(true);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 3', () => {
         const wrapper = shallowMount(Paginator, {
@@ -37,12 +42,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <!----> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">2</a></span> <span class="paginator-cell">3</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">4</a></span> '+
-        '<span>...</span> <span class="paginator-cell"><a href="javascript:void(0)">10</a>'+
-        '</span></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(false);
+        expect(wrapper.find('.previous').text()).toBe("2");
+        expect(wrapper.find('.current').text()).toBe("3");
+        expect(wrapper.find('.next').text()).toBe("4");
+        expect(wrapper.find('.separator.right').exists()).toBe(true);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 4', () => {
         const wrapper = shallowMount(Paginator, {
@@ -52,12 +58,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <span>...</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">3</a></span> '+
-        '<span class="paginator-cell">4</span> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">5</a></span> <span>...</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">10</a></span></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(true);
+        expect(wrapper.find('.previous').text()).toBe("3");
+        expect(wrapper.find('.current').text()).toBe("4");
+        expect(wrapper.find('.next').text()).toBe("5");
+        expect(wrapper.find('.separator.right').exists()).toBe(true);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 8', () => {
         const wrapper = shallowMount(Paginator, {
@@ -67,12 +74,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <span>...</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">7</a></span> '+
-        '<span class="paginator-cell">8</span> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">9</a></span> <!----> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">10</a></span></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(true);
+        expect(wrapper.find('.previous').text()).toBe("7");
+        expect(wrapper.find('.current').text()).toBe("8");
+        expect(wrapper.find('.next').text()).toBe("9");
+        expect(wrapper.find('.separator.right').exists()).toBe(false);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 9', () => {
         const wrapper = shallowMount(Paginator, {
@@ -82,11 +90,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <span>...</span> '+
-        '<span class="paginator-cell"><a href="javascript:void(0)">8</a></span> '+
-        '<span class="paginator-cell">9</span> <!----> <!----> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">10</a></span></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(true);
+        expect(wrapper.find('.previous').text()).toBe("8");
+        expect(wrapper.find('.current').text()).toBe("9");
+        expect(wrapper.find('.next').exists()).toBe(false);
+        expect(wrapper.find('.separator.right').exists()).toBe(false);
+        expect(wrapper.find('.last').text()).toBe("10");
     });
     it('renders page 10', () => {
         const wrapper = shallowMount(Paginator, {
@@ -96,10 +106,13 @@ describe('Paginator.vue', () => {
                 totalItems : 100,
             },
         });
-        expect(wrapper.html()).toMatch('<div class="paginator"><span class="paginator-cell">'+
-        '<a href="javascript:void(0)">1</a></span> <span>...</span> <span class="paginator-cell">'+
-        '<a href="javascript:void(0)">9</a></span> <span class="paginator-cell">10</span> <!----> '+
-        '<!----> <!----></div>');
+        expect(wrapper.find('.first').text()).toBe("1");
+        expect(wrapper.find('.separator.left').exists()).toBe(true);
+        expect(wrapper.find('.previous').text()).toBe("9");
+        expect(wrapper.find('.current').text()).toBe("10");
+        expect(wrapper.find('.next').exists()).toBe(false);
+        expect(wrapper.find('.separator.right').exists()).toBe(false);
+        expect(wrapper.find('.last').exists()).toBe(false);
     });
 
     it('renders 0 items', () => {
@@ -110,7 +123,13 @@ describe('Paginator.vue', () => {
                 totalItems : 0,
             },
         });
-        expect(wrapper.html()).toBeUndefined();
+        expect(wrapper.find('.first').exists()).toBe(false);
+        expect(wrapper.find('.separator.left').exists()).toBe(false);
+        expect(wrapper.find('.previous').exists()).toBe(false);
+        expect(wrapper.find('.current').exists()).toBe(false);
+        expect(wrapper.find('.next').exists()).toBe(false);
+        expect(wrapper.find('.separator.right').exists()).toBe(false);
+        expect(wrapper.find('.last').exists()).toBe(false);
     });
 
 });
