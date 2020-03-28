@@ -1,7 +1,24 @@
 <script>
+import axios from 'axios';
+
 export default {
     props: [ 'item' ],
-    methods: {}
+    methods: {
+        mark: function() {
+            axios
+                .post('/api/wanted/' + this.item.id + '/mark')
+                .then((response) => {
+                    this.$emit('reload');
+                });
+        },
+        downloaded: function() {
+            axios
+                .post('/api/wanted/' + this.item.id + '/downloaded')
+                .then((response) => {
+                    this.$emit('reload');
+                });
+        },
+    }
 }
 </script>
 
@@ -12,6 +29,12 @@ export default {
         <td class="disc">{{ item.disc }}</td>
         <td class="weeks">{{ item.weeks }}</td>
         <td class="done">{{ item.done }}</td>
+        <td class="mark">
+            <a href="javascript:void(0)" v-on:click="mark()">Mark</a>
+        </td>
+        <td class="downloaded">
+            <a href="javascript:void(0)" v-on:click="downloaded()">Downloaded</a>
+        </td>
     </tr>
 </template>
 

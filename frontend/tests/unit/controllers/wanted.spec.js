@@ -19,6 +19,8 @@ describe('Wanted.vue', () => {
         const wrapper = shallowMount(Wanted);
         moxios.wait(() => {
             const request = moxios.requests.mostRecent();
+            expect(request.config.url).toEqual('/api/wanted');
+            expect(request.config.method).toEqual('get');
             request.respondWith({
               status: 200,
               response: wantedResponse,
@@ -27,7 +29,28 @@ describe('Wanted.vue', () => {
                 done();
             });
         });
+    });
 
+    it('reloads after wanted marked', (done) => {
+        const wrapper = shallowMount(Wanted);
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+            expect(request.config.url).toEqual('/api/wanted');
+            expect(request.config.method).toEqual('get');
+            request.respondWith({
+              status: 200,
+              response: wantedResponse,
+            }).then(() => {
+                expect(wrapper.findAll('wanted-item-stub').length).toBe(6);
+                wrapper.find('wanted-item-stub').vm.$emit('reload', null);
+                moxios.wait(() => {
+                    const request = moxios.requests.mostRecent();
+                    expect(request.config.url).toEqual('/api/wanted');
+                    expect(request.config.method).toEqual('get');
+                    done();
+                });
+            });
+        });
     });
 
 });
