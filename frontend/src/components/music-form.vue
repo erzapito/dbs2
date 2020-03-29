@@ -43,11 +43,13 @@ export default {
 
 <template>
     <div class="music-edit-form" >
-        <input class="music-helper" v-model="full"/>
+        <input v-if="!item.id" class="music-helper" v-model="full"/>
 
         <edit-field label="artist" v-bind:field="item.artist" />
         <edit-field label="disc" v-bind:field="item.disc" />
-        <button class="save" v-on:click="save()">Save</button>
-        <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+        <div class="buttons">
+            <button class="save" v-on:click="save()">Save</button>
+            <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+        </div>
     </div>
 </template>

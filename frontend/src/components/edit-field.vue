@@ -10,3 +10,16 @@ export default {
         <input v-model="field" />
     </div>
 </template>
+
+<style lang="scss">
+.edit-field {
+    display: flex;
+
+    label {
+        display: flex;
+        width: 100px;
+        align-items: center;
+        justify-content: left;
+    }
+}
+</style>

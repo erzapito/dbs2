@@ -55,10 +55,11 @@ export default {
 </script>
 
 <template>
-  <div class="series-controller">
+  <div class="series-controller controller">
     <div class="title">Series</div>
 
     <div class="search">
+        Search:
         <input type="text" v-model="search" v-on:keyup="delayedLoad()" />
     </div>
 
@@ -84,3 +85,7 @@ export default {
       v-on:paginator-page-change="setPage($event)" />
   </div>
 </template>
+
+<style lang="scss">
+@import '../assets/controller.scss';
+</style>

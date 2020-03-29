@@ -7,14 +7,14 @@ export default {
         mark: function() {
             axios
                 .post('/api/wanted/' + this.item.id + '/mark')
-                .then((response) => {
+                .then(() => {
                     this.$emit('reload');
                 });
         },
         downloaded: function() {
             axios
                 .post('/api/wanted/' + this.item.id + '/downloaded')
-                .then((response) => {
+                .then(() => {
                     this.$emit('reload');
                 });
         },
@@ -39,8 +39,12 @@ export default {
 </template>
 
 <style lang="scss">
-.series-item {
-    display: inline-block;
+.wanted-item {
+    .artist {
+        min-width: 100px;
+    }
+    .disc {
+        min-width: 100px;
+    }
 }
-
 </style>

@@ -55,7 +55,7 @@ export default {
 </script>
 
 <template>
-  <div class="music-controller">
+  <div class="music-controller controller">
     <div class="title">Musica</div>
 
     <div class="search">
@@ -84,3 +84,7 @@ export default {
       v-on:paginator-page-change="setPage($event)" />
   </div>
 </template>
+
+<style lang="scss">
+@import '../assets/controller.scss';
+</style>

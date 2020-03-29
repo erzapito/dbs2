@@ -1,0 +1,26 @@
+.controller {
+    max-width: 400px;
+    .title {
+        font-size: xx-large;
+        padding: 20px;
+    }
+
+    .item {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+       
+        .content {
+            display: flex;
+
+            .id {
+                padding-right: 5px;
+            }
+        }
+        .edit {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+}

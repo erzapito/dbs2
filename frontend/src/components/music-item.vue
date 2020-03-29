@@ -16,20 +16,16 @@ export default {
 </script>
 
 <template>
-    <div class="music-item">
-        <span class="id">{{ item.id }}</span>
-        <a class="toggle" href="javascript:void(0)" v-on:click="editing = !editing">{{ item.artist }} - {{ item.disc }}</a>
+    <div class="item">
+        <div class="content">
+            <span class="id">{{ item.id }}</span>
+            <a class="toggle" href="javascript:void(0)" v-on:click="editing = !editing">{{ item.artist }} - {{ item.disc }}</a>
+        </div>
         <music-form
+            class="edit"
             v-if="editing"
             :item="item"
             v-on:music-saved="$emit('reload-music')"
             v-on:music-deleted="$emit('reload-music')" />
     </div>
 </template>
-
-<style lang="scss">
-.music-item {
-    display: inline-block;
-}
-
-</style>

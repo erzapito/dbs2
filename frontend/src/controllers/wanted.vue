@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <div class="wanted-controller">
+  <div class="wanted-controller controller">
     <div class="title">Wanteds</div>
 
     <table class="listing">
@@ -48,3 +48,26 @@ export default {
     </table>
   </div>
 </template>
+
+<style lang="scss">
+.wanted-controller {
+    .listing {
+        width: 100%;
+        display: block;        
+
+        tr.headers {
+            background-color: #f2d2d2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 4px;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+}
+</style>

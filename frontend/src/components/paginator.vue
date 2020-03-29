@@ -30,3 +30,20 @@ export default {
         </span>
     </div>
 </template>
+
+<style lang="scss">
+.paginator {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+
+    .cell {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+    }
+}
+</style>

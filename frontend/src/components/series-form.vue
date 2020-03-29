@@ -40,7 +40,9 @@ export default {
         <edit-field label="category" v-bind:field="item.categoria" />
         <edit-field label="fansub" v-bind:field="item.fansub" />
         <edit-field label="idioma" v-bind:field="item.idioma" />
-        <button class="save" v-on:click="save()">Save</button>
-        <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+        <div class="buttons">
+            <button class="save" v-on:click="save()">Save</button>
+            <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+        </div>
     </div>
 </template>
