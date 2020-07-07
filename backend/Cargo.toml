@@ -1,0 +1,9 @@
+[package]
+name = "dbs2"
+version = "0.0.1"
+authors = ["erzapito"]
+
+[dependencies]
+fastcgi = "1.0.0"
+log = "0.4.8"
+log4rs = "0.12.0"
