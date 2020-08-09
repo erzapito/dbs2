@@ -6,6 +6,8 @@ extern crate log4rs;
 
 //use log::{error, info, warn};
 
+use actix_web::{App,HttpServer,web};
+
 mod actions;
 mod dao;
 mod db;
@@ -16,16 +18,17 @@ fn configure_logger() {
     log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
 }
 
-#[tokio::main]
-async fn main() {
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
     configure_logger();
 
-    let music = actions::music::endpoints();
-
-    let routes = music;
-
-    warp::serve(routes)
-        .run(([127, 0, 0, 1], 3030))
-        .await;
-
+    HttpServer::new(|| {
+        App::new()
+          .service( web::scope("/")
+            .configure( actions::music::endpoints )
+          )
+    })
+    .bind("127.0.0.1:8088")?
+    .run()
+    .await
 }

@@ -1,7 +1,10 @@
 mod list;
 
-use warp::Filter;
+use actix_web::web;
 
-pub fn endpoints() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
-    list::endpoint()
+pub fn endpoints(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::resource("/music")
+          .route( web::get().to(list::endpoint) )
+    );
 }

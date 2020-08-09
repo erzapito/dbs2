@@ -3,7 +3,7 @@ extern crate diesel;
 use crate::entities::*;
 use diesel::prelude::*;
 
-pub fn list (page : u32, page_size: u32) -> Vec<Music> {
+pub fn list (page : usize, page_size: usize) -> Vec<Music> {
     use crate::schema::music::dsl::*;
 
     let connection = crate::db::establish_connection();
