@@ -24,6 +24,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+          .data( dao::Dao{} )
           .service( web::scope("/")
             .configure( actions::music::endpoints )
           )

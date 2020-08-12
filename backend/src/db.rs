@@ -3,7 +3,9 @@ use diesel::mysql::MysqlConnection;
 use dotenv::dotenv;
 use std::env;
 
-pub fn establish_connection() -> MysqlConnection {
+pub type DbConnection = MysqlConnection;
+
+pub fn establish_connection() -> DbConnection {
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL")
