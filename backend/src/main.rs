@@ -11,8 +11,8 @@ use actix_web::{App,HttpServer,web};
 mod actions;
 mod dao;
 mod db;
-mod entities;
-mod schema;
+pub mod entities;
+pub mod schema;
 
 fn configure_logger() {
     log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
