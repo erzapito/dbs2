@@ -7,6 +7,7 @@ extern crate log4rs;
 //use log::{error, info, warn};
 
 use actix_web::{App,HttpServer,web};
+use actix_files as fs;
 
 mod actions;
 mod dao;
@@ -25,8 +26,11 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
           .data( dao::Dao{} )
-          .service( web::scope("/")
+          .service( web::scope("/api")
             .configure( actions::music::endpoints )
+          )
+          .service(fs::Files::new("/", "./static")
+            .index_file("index.html")
           )
     })
     .bind("127.0.0.1:8088")?
