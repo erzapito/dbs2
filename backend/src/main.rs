@@ -1,39 +1,34 @@
 #[macro_use]
 extern crate diesel;
-extern crate dotenv;
-extern crate log;
-extern crate log4rs;
+#[macro_use]
+extern crate lazy_static;
+#[macro_use]
+extern crate redis_async;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate validator_derive;
 
-//use log::{error, info, warn};
+use crate::server::server;
 
-use actix_web::{App,HttpServer,web};
-use actix_files as fs;
-
-mod actions;
-mod dao;
-mod db;
-pub mod entities;
-pub mod schema;
-
-fn configure_logger() {
-    log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
-}
+mod auth;
+mod cache;
+mod config;
+mod database;
+mod errors;
+mod extractors;
+pub mod handlers;
+mod helpers;
+mod middleware;
+mod models;
+mod routes;
+mod schema;
+mod server;
+mod state;
+mod tests;
+mod validate;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    configure_logger();
-
-    HttpServer::new(|| {
-        App::new()
-          .data( dao::Dao{} )
-          .service( web::scope("/api")
-            .configure( actions::music::endpoints )
-          )
-          .service(fs::Files::new("/", "./static")
-            .index_file("index.html")
-          )
-    })
-    .bind("127.0.0.1:8088")?
-    .run()
-    .await
+    server().await
 }
