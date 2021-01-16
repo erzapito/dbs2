@@ -25,16 +25,16 @@ pub type MysqlPool = Pool<MysqlConnection>;
 pub type PostgresPool = Pool<PgConnection>;
 pub type SqlitePool = Pool<SqliteConnection>;
 
-#[cfg(feature = "cockraoch")]
+#[cfg(all(feature = "cockraoch",not(test)))]
 pub type PoolType = CockroachPool;
 
-#[cfg(feature = "mysql")]
+#[cfg(all(feature = "mysql",not(test)))]
 pub type PoolType = MysqlPool;
 
-#[cfg(feature = "postgres")]
+#[cfg(all(feature = "postgres",not(test)))]
 pub type PoolType = PostgresPool;
 
-#[cfg(feature = "sqlite")]
+#[cfg(any(feature = "sqlite",test))]
 pub type PoolType = SqlitePool;
 
 #[derive(Clone)]

@@ -67,14 +67,14 @@ export default {
         <music-form
             v-if="newElement"
             :item="newItem"
-            v-on:series-saved="setPage(0)" />
+            v-on:music-saved="setPage(1)" />
     </div>
 
     <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >
             <music-item
                 :item="item"
-                v-on:reload-series="loadCurrentPage()" />
+                v-on:reload-music="loadCurrentPage()" />
         </li>
     </ul>
     <paginator

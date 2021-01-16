@@ -8,6 +8,11 @@ export default {
         return {
             'editing': false,
             'full': '',
+            'i' : {
+              id: this.item.id,
+              artist: this.item.artist,
+              disc: this.item.disc,
+            },
         };
     },
     components: {
@@ -16,26 +21,28 @@ export default {
     watch: {
         full: function(n){
             const fields = n.split(' - ');
-            this.item.artist = fields[0].trim();
-            this.item.disc = fields[1].trim();
+            this.i.artist = fields[0].trim();
+            this.i.disc = fields[1].trim();
         },
     },
     methods: {
         save: function() {
-            if (this.item.id) {
-                axios.put('/api/music/' + this.item.id, this.item).then(() => {
-                    this.$emit('music-saved',this.item);
+            if (this.i.id) {
+                axios.put('/api/music/' + this.i.id, this.i).then(() => {
+                    this.$emit('music-saved',this.i);
                 });
             } else {
-                axios.post('/api/music/', this.item).then(() => {
-                    this.$emit('music-saved',this.item);
+                axios.post('/api/music', this.i).then(() => {
+                    this.$emit('music-saved',this.i);
                 });
             }
         },
         remove: function() {
-            axios.delete('/api/music/' + this.item.id).then(() => {
-                this.$emit('music-deleted',this.item);
-            });
+            if (confirm("Sure you want to delete'")) {
+              axios.delete('/api/music/' + this.i.id).then(() => {
+                  this.$emit('music-deleted',this.i);
+              });
+            }
         },
     }
 }
@@ -43,13 +50,12 @@ export default {
 
 <template>
     <div class="music-edit-form" >
-        <input v-if="!item.id" class="music-helper" v-model="full"/>
-
-        <edit-field label="artist" v-bind:field="item.artist" />
-        <edit-field label="disc" v-bind:field="item.disc" />
+        <input v-if="!i.id" class="music-helper" v-model="full"/>
+        <edit-field label="artist" v-bind:field="i.artist" v-on:value-changed="i.artist = $event" />
+        <edit-field label="disc" v-bind:field="i.disc" v-on:value-changed="i.disc = $event" />
         <div class="buttons">
             <button class="save" v-on:click="save()">Save</button>
-            <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+            <button class="remove" v-on:click="remove()" v-if="i.id">Delete</button>
         </div>
     </div>
 </template>

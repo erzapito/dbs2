@@ -4,7 +4,7 @@ use crate::handlers::music::MusicResponse;
 use crate::schema::music;
 use diesel::prelude::*;
 
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Queryable, Identifiable, Insertable)]
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Queryable, Identifiable)]
 #[table_name = "music"]
 pub struct Music {
     pub id: i32,
@@ -12,7 +12,8 @@ pub struct Music {
     pub disc: String,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, Insertable)]
+#[table_name = "music"]
 pub struct NewMusic {
     pub artist: String,
     pub disc: String,
@@ -24,12 +25,6 @@ pub struct UpdateMusic {
     pub id: i32,
     pub artist: String,
     pub disc: String,
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct AuthUser {
-    pub id: String,
-    pub email: String,
 }
 
 fn get_search_token(  src_search_token: &String ) -> String {
@@ -84,34 +79,16 @@ pub fn find(pool: &PoolType, item_id: i32) -> Result<MusicResponse, ApiError> {
     Ok(result.into())
 }
 
-/// Find a user by the user's authentication information (email + password)
-/// Return an Unauthorized error if it doesn't match
-pub fn find_by_auth(
-    pool: &PoolType,
-    user_email: &str,
-    user_password: &str,
-) -> Result<MusicResponse, ApiError> {
-    use crate::schema::music::dsl::{artist, disc, music};
-
-    let conn = pool.get()?;
-    let result = music
-        .filter(artist.eq(user_email.to_string()))
-        .filter(disc.eq(user_password.to_string()))
-        .first::<Music>(&conn)
-        .map_err(|_| ApiError::Unauthorized("Invalid login".into()))?;
-    Ok(result.into())
-}
-
 /// Create a new user
-pub fn create(pool: &PoolType, new_item: &Music) -> Result<MusicResponse, ApiError> {
+pub fn create(pool: &PoolType, new_item: &NewMusic) -> Result<(), ApiError> {
     use crate::schema::music::dsl::music;
 
     let conn = pool.get()?;
     diesel::insert_into(music).values(new_item).execute(&conn)?;
-    Ok(new_item.clone().into())
+    Ok(())
 }
 
-pub fn update(pool: &PoolType, update_item: &UpdateMusic) -> Result<MusicResponse, ApiError> {
+pub fn update(pool: &PoolType, update_item: &UpdateMusic) -> Result<(), ApiError> {
     use crate::schema::music::dsl::{id, music};
 
     let conn = pool.get()?;
@@ -119,7 +96,7 @@ pub fn update(pool: &PoolType, update_item: &UpdateMusic) -> Result<MusicRespons
         .filter(id.eq(update_item.id))
         .set(update_item)
         .execute(&conn)?;
-    find(&pool, update_item.id)
+    Ok(())
 }
 
 pub fn delete(pool: &PoolType, item_id: i32) -> Result<(), ApiError> {
@@ -145,97 +122,93 @@ impl From<NewMusic> for Music {
 #[cfg(test)]
 pub mod tests {
     use super::*;
-    use crate::tests::helpers::tests::get_pool;
+    use crate::tests::helpers::tests::init_test_pool;
 
-    pub fn get_all_users() -> Result<UsersResponse, ApiError> {
-        let pool = get_pool();
-        get_all(&pool)
+    pub fn get_all_music(pool: &PoolType) -> Result<Vec<Music>, ApiError> {
+        get_all(&pool,&"".to_string(),0,10)
     }
 
-    pub fn create_user() -> Result<UserResponse, ApiError> {
-        let user_id = Uuid::new_v4();
-        let new_user = NewUser {
-            id: user_id.to_string(),
-            first_name: "Model".to_string(),
-            last_name: "Test".to_string(),
-            email: "model-test@nothing.org".to_string(),
-            password: "123456".to_string(),
-            created_by: user_id.to_string(),
-            updated_by: user_id.to_string(),
+    pub fn create_music(pool: &PoolType) -> Result<(), ApiError> {
+        let new_item = NewMusic {
+            artist: "Artist".to_string(),
+            disc: "Disc".to_string(),
         };
-        let user: User = new_user.into();
-        create(&get_pool(), &user)
+        create(pool, &new_item)
     }
 
     #[test]
-    fn it_gets_a_user() {
-        let users = get_all_users();
-        assert!(users.is_ok());
+    fn it_gets_a_music() {
+        let pool = init_test_pool();
+        let items = get_all_music(&pool);
+        assert!(items.is_ok());
     }
 
     #[test]
     fn test_find() {
-        let users = get_all_users().unwrap();
-        let user = &users.0[0];
-        let found_user = find(&get_pool(), user.id).unwrap();
-        assert_eq!(user, &found_user);
-    }
-
-    #[test]
-    fn it_doesnt_find_a_user() {
-        let user_id = Uuid::new_v4();
-        let not_found_user = find(&get_pool(), user_id);
-        assert!(not_found_user.is_err());
-    }
-
-    #[test]
-    fn it_creates_a_user() {
-        let created = create_user();
+        let pool = init_test_pool();
+        let created = create_music(&pool);
         assert!(created.is_ok());
-        let unwrapped = created.unwrap();
-        let found_user = find(&get_pool(), unwrapped.id.clone()).unwrap();
-        assert_eq!(unwrapped, found_user);
+        let items = get_all_music(&pool).unwrap();
+        let item = &items[0];
+        let found_item = find(&pool, items[0].id).unwrap();
+        assert_eq!(item.id, found_item.id);
     }
 
     #[test]
-    fn it_updates_a_user() {
-        let users = get_all_users().unwrap();
-        let user = &users.0[1];
-        let update_user = UpdateUser {
-            id: user.id.to_string(),
-            first_name: "ModelUpdate".to_string(),
-            last_name: "TestUpdate".to_string(),
-            email: "model-update-test@nothing.org".to_string(),
-            updated_by: user.id.to_string(),
+    fn it_doesnt_find_a_music() {
+        let pool = init_test_pool();
+        let item_id = -1;
+        let not_found_item = find(&pool, item_id);
+        assert!(not_found_item.is_err());
+    }
+
+    #[test]
+    fn it_creates_a_music() {
+        let pool = init_test_pool();
+
+        let created = create_music(&pool);
+        assert!(created.is_ok());
+        let items = get_all_music(&pool).unwrap();
+        assert_eq!(1, items.len());
+        let item = &items[0];
+        let found_item = find(&pool, item.id).unwrap();
+        assert_eq!("Artist", found_item.artist);
+        assert_eq!("Disc", found_item.disc);
+    }
+
+    #[test]
+    fn it_updates_a_music() {
+        let pool = init_test_pool();
+        let created = create_music(&pool);
+        assert!(created.is_ok());
+        let items = get_all_music(&pool).unwrap();
+        let item = &items[0];
+        let update_item = UpdateMusic {
+            id: item.id,
+            artist: "ArtistUpdate".to_string(),
+            disc: "DiscUpdate".to_string(),
         };
-        let updated = update(&get_pool(), &update_user);
+        let updated = update(&pool, &update_item);
         assert!(updated.is_ok());
-        let found_user = find(&get_pool(), user.id).unwrap();
-        assert_eq!(updated.unwrap(), found_user);
+        let found_item = find(&pool, item.id).unwrap();
+        assert_eq!("ArtistUpdate", found_item.artist);
+        assert_eq!("DiscUpdate", found_item.disc);
     }
 
     #[test]
-    fn it_fails_to_update_a_nonexistent_user() {
-        let user_id = Uuid::new_v4();
-        let update_user = UpdateUser {
-            id: user_id.to_string(),
-            first_name: "ModelUpdateFailure".to_string(),
-            last_name: "TestUpdateFailure".to_string(),
-            email: "model-update-failure-test@nothing.org".to_string(),
-            updated_by: user_id.to_string(),
-        };
-        let updated = update(&get_pool(), &update_user);
-        assert!(updated.is_err());
-    }
-
-    #[test]
-    fn it_deletes_a_user() {
-        let created = create_user();
-        let user_id = created.unwrap().id;
-        let user = find(&get_pool(), user_id);
-        assert!(user.is_ok());
-        delete(&get_pool(), user_id).unwrap();
-        let user = find(&get_pool(), user_id);
-        assert!(user.is_err());
+    fn it_deletes_a_music() {
+        let pool = init_test_pool();
+        let created = create_music(&pool);
+        assert!(created.is_ok());
+        let items = get_all_music(&pool).unwrap();
+        assert_eq!(1, items.len());
+        let item = &items[0];
+        let item_id = item.id;
+        assert_eq!("Artist", item.artist);
+        let item = find(&pool, item_id);
+        assert!(item.is_ok());
+        delete(&pool, item_id).unwrap();
+        let item = find(&pool, item_id);
+        assert!(item.is_err());
     }
 }

@@ -14,19 +14,9 @@ use serde::Deserialize;
 
 #[derive(Clone, Deserialize, Debug)]
 pub struct Config {
-    pub auth_salt: String,
     pub database: DatabaseConnection,
     pub database_url: String,
-    pub jwt_expiration: i64,
-    pub jwt_key: String,
-    pub redis_url: String,
-    pub rust_backtrace: u8,
-    pub rust_log: String,
     pub server: String,
-    pub session_key: String,
-    pub session_name: String,
-    pub session_secure: bool,
-    pub session_timeout: i64,
 }
 
 // Throw the Config struct into a CONFIG lazy_static to avoid multiple processing
