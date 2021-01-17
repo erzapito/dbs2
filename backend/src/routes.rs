@@ -1,6 +1,7 @@
 use crate::handlers::{
     music::{create_music, delete_music, get_music, music_list, update_music},
     series::{create_series, delete_series, get_series, series_list, update_series},
+    wanted::{downloaded_wanted, mark_wanted, wanted_list}
 };
 use actix_files::Files;
 use actix_web::web;
@@ -17,7 +18,7 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
                         .route("/{id}", web::put().to(update_music))
                         .route("/{id}", web::delete().to(delete_music))
                         .route("", web::get().to(music_list))
-                        .route("", web::post().to(create_music)),
+                        .route("", web::post().to(create_music))
                 )
                 // SERIES routes
                 .service(
@@ -26,7 +27,14 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
                         .route("/{id}", web::put().to(update_series))
                         .route("/{id}", web::delete().to(delete_series))
                         .route("", web::get().to(series_list))
-                        .route("", web::post().to(create_series)),
+                        .route("", web::post().to(create_series))
+                )
+                // WANTED routes
+                .service(
+                    web::scope("/wanted")
+                        .route("/{id}/mark", web::post().to(mark_wanted))
+                        .route("/{id}/downloaded", web::post().to(downloaded_wanted))
+                        .route("", web::get().to(wanted_list))
                 )
         )
         // Serve public static files from the static folder

@@ -16,3 +16,13 @@ table! {
         name -> Varchar,
     }
 }
+
+table! {
+    wanted (id) {
+        id -> Integer,
+        artist -> Varchar,
+        disc -> Varchar,
+        done -> Integer,
+        weeks -> Integer,
+    }
+}

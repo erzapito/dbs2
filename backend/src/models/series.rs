@@ -37,7 +37,6 @@ pub struct UpdateSeries {
     pub name: String,
 }
 
-/// Create a new user
 pub fn create(pool: &PoolType, new_item: &NewSeries) -> Result<(), ApiError> {
     use crate::schema::serie::dsl::serie;
 
