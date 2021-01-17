@@ -1,6 +1,7 @@
 use crate::database::PoolType;
 use crate::errors::ApiError;
 use crate::handlers::music::MusicResponse;
+use crate::helpers::get_search_token;
 use crate::schema::music;
 use diesel::prelude::*;
 
@@ -27,14 +28,6 @@ pub struct UpdateMusic {
     pub disc: String,
 }
 
-fn get_search_token(  src_search_token: &String ) -> String {
-    let mut search_token: String = "%".to_string();
-    search_token.push_str( src_search_token );
-    search_token.push_str( "%" );
-    search_token
-}
-
-/// Get all users
 pub fn get_all(pool: &PoolType, src_search_token: &String, page: i64, page_size: i64) -> Result<Vec<Music>, ApiError> {
     use crate::schema::music::dsl::{music,artist,disc};
 
@@ -51,7 +44,6 @@ pub fn get_all(pool: &PoolType, src_search_token: &String, page: i64, page_size:
     Ok(result.into())
 }
 
-/// count all users
 pub fn count_all(pool: &PoolType, src_search_token: &String) -> Result<i64, ApiError> {
     use crate::schema::music::dsl::{music,artist,disc};
 
@@ -65,7 +57,6 @@ pub fn count_all(pool: &PoolType, src_search_token: &String) -> Result<i64, ApiE
     Ok(result)
 }
 
-/// Find a user by the user's id or error out
 pub fn find(pool: &PoolType, item_id: i32) -> Result<MusicResponse, ApiError> {
     use crate::schema::music::dsl::{id, music};
 
@@ -79,7 +70,6 @@ pub fn find(pool: &PoolType, item_id: i32) -> Result<MusicResponse, ApiError> {
     Ok(result.into())
 }
 
-/// Create a new user
 pub fn create(pool: &PoolType, new_item: &NewMusic) -> Result<(), ApiError> {
     use crate::schema::music::dsl::music;
 

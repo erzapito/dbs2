@@ -15,6 +15,13 @@ pub fn respond_ok() -> Result<HttpResponse, ApiError> {
     Ok(HttpResponse::Ok().body(Body::Empty))
 }
 
+pub fn get_search_token(  src_search_token: &String ) -> String {
+    let mut search_token: String = "%".to_string();
+    search_token.push_str( src_search_token );
+    search_token.push_str( "%" );
+    search_token
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
