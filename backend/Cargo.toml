@@ -10,7 +10,7 @@ actix-files = "0.2.1"
 actix-rt = "1"
 actix-web = "2"
 derive_more = "0.15"
-diesel = { version = "1.4.0", features = ["chrono", "mysql", "postgres", "sqlite", "r2d2", "uuidv07"] }
+diesel = { version = "1.4.0", features = ["chrono", "mysql", "sqlite", "r2d2", "uuidv07"] }
 diesel_migrations = "1.4.0"
 dotenv = "0.14"
 envy = "0.4"

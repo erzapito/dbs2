@@ -45,6 +45,7 @@ pub fn count_all(pool: &PoolType) -> Result<i64, ApiError> {
     Ok(result)
 }
 
+#[cfg(test)]
 pub fn find(pool: &PoolType, item_id: i32) -> Result<Wanted, ApiError> {
     use crate::schema::wanted::dsl::{id, wanted};
 
@@ -58,6 +59,7 @@ pub fn find(pool: &PoolType, item_id: i32) -> Result<Wanted, ApiError> {
     Ok(result)
 }
 
+#[cfg(test)]
 pub fn create(pool: &PoolType, new_item: &NewWanted) -> Result<(), ApiError> {
     use crate::schema::wanted::dsl::wanted;
 
