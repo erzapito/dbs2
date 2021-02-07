@@ -6,14 +6,14 @@ export default {
     methods: {
         mark: function() {
             axios
-                .post('/api/wanted/' + this.item.id + '/mark')
+                .post('api/wanted/' + this.item.id + '/mark')
                 .then(() => {
                     this.$emit('reload');
                 });
         },
         downloaded: function() {
             axios
-                .post('/api/wanted/' + this.item.id + '/downloaded')
+                .post('api/wanted/' + this.item.id + '/downloaded')
                 .then(() => {
                     this.$emit('reload');
                 });

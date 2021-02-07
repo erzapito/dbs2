@@ -7,7 +7,8 @@ use actix_files::Files;
 use actix_web::web;
 
 pub fn routes(cfg: &mut web::ServiceConfig) {
-    cfg
+    cfg.service(
+        web::scope("/dbs2")
         // /api/v1 routes
         .service(
             web::scope("/api")
@@ -44,5 +45,6 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
                     .index_file("index.html")
                     .use_last_modified(true),
             ),
-        );
+        )
+    );
 }

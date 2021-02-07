@@ -39,7 +39,7 @@ export default {
         this.newElement = false;
         this.newItem = {};
         axios
-          .get('/api/music', {
+          .get('api/music', {
                 params : {
                     page : this.currentPage - 1,
                     search : this.search,

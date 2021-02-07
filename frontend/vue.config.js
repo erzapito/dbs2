@@ -5,5 +5,6 @@ module.exports = {
         devServer: {
             before: mockedWebpackFunction
         },
-    }
-  }
+    },
+    publicPath: "/dbs2"
+}

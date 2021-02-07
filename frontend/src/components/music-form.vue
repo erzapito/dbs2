@@ -28,18 +28,18 @@ export default {
     methods: {
         save: function() {
             if (this.i.id) {
-                axios.put('/api/music/' + this.i.id, this.i).then(() => {
+                axios.put('api/music/' + this.i.id, this.i).then(() => {
                     this.$emit('music-saved',this.i);
                 });
             } else {
-                axios.post('/api/music', this.i).then(() => {
+                axios.post('api/music', this.i).then(() => {
                     this.$emit('music-saved',this.i);
                 });
             }
         },
         remove: function() {
             if (confirm("Sure you want to delete'")) {
-              axios.delete('/api/music/' + this.i.id).then(() => {
+              axios.delete('api/music/' + this.i.id).then(() => {
                   this.$emit('music-deleted',this.i);
               });
             }

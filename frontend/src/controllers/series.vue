@@ -39,7 +39,7 @@ export default {
         this.newItem = {};
         this.newElement = false;
         axios
-          .get('/api/series', {
+          .get('api/series', {
                 params : {
                     page : this.currentPage - 1,
                     search : this.search,

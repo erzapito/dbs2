@@ -17,7 +17,7 @@ export default {
   methods: {
     loadCurrentPage: function() {
         axios
-          .get('/api/wanted')
+          .get('api/wanted')
           .then((response) => {
             this.items = response.data.items;
           });

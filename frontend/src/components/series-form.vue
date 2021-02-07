@@ -15,17 +15,17 @@ export default {
     methods: {
         save: function() {
             if (this.item.id) {
-                axios.put('/api/series/' + this.item.id, this.item).then(() => {
+                axios.put('api/series/' + this.item.id, this.item).then(() => {
                     this.$emit('series-saved',this.item);
                 });
             } else {
-                axios.post('/api/series/', this.item).then(() => {
+                axios.post('api/series/', this.item).then(() => {
                     this.$emit('series-saved',this.item);
                 });
             }
         },
         remove: function() {
-            axios.delete('/api/series/' + this.item.id).then(() => {
+            axios.delete('api/series/' + this.item.id).then(() => {
                 this.$emit('series-deleted',this.item);
             });
         }
