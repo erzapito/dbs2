@@ -27,8 +27,8 @@ pub fn get_all(pool: &PoolType) -> Result<Vec<Wanted>, ApiError> {
 
     let conn = pool.get()?;
     let result = wanted
-      .filter(done.eq(0))
-      .order( weeks.asc() )
+      .filter(weeks.gt(-1))
+      .order((done.asc(),weeks.desc()))
       .load(&conn)?;
 
     Ok(result.into())
@@ -69,12 +69,12 @@ pub fn create(pool: &PoolType, new_item: &NewWanted) -> Result<(), ApiError> {
 }
 
 pub fn mark_as_downloaded (pool: &PoolType, item_id: i32) -> Result<(), ApiError> {
-    use crate::schema::wanted::dsl::{wanted, id, done};
+    use crate::schema::wanted::dsl::{wanted, id, weeks};
 
     let conn = pool.get()?;
     diesel::update(wanted)
         .filter(id.eq(item_id))
-        .set(done.eq(1))
+        .set(weeks.eq(-1))
         .execute(&conn)?;
     Ok(())
 }
