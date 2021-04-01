@@ -80,12 +80,12 @@ pub fn mark_as_downloaded (pool: &PoolType, item_id: i32) -> Result<(), ApiError
 }
 
 pub fn increase_wanted_week (pool: &PoolType, item_id: i32) -> Result<(), ApiError> {
-    use crate::schema::wanted::dsl::{wanted, id, weeks};
+    use crate::schema::wanted::dsl::{wanted, id, weeks, done};
 
     let conn = pool.get()?;
     diesel::update(wanted)
         .filter(id.eq(item_id))
-        .set(weeks.eq( weeks + 1 ))
+        .set( ( weeks.eq( weeks + 1 ), done.eq(1) ) )
         .execute(&conn)?;
     Ok(())    
 }
