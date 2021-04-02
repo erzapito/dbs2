@@ -4,6 +4,7 @@ import EditField from '../components/edit-field.vue';
 
 export default {
     props: [ 'item' ],
+    emits: [ 'close', 'series-saved', 'series-deleted'],
     data: function(){
         return {
             'editing': false,
@@ -11,6 +12,11 @@ export default {
     },
     components: {
         EditField,
+    },
+    computed: {
+        saveIsDisabled: function() {
+            return !this.item.name;
+        },
     },
     methods: {
         save: function() {
@@ -34,15 +40,26 @@ export default {
 </script>
 
 <template>
-    <div class="series-edit" >
-        <edit-field label="name" v-bind:field="item.name" />
-        <edit-field label="chapters" v-bind:field="item.capitulos" />
-        <edit-field label="category" v-bind:field="item.categoria" />
-        <edit-field label="fansub" v-bind:field="item.fansub" />
-        <edit-field label="idioma" v-bind:field="item.idioma" />
-        <div class="buttons">
-            <button class="save" v-on:click="save()">Save</button>
-            <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
+    <div class="series-edit modal">
+        <edit-field label="name"     v-model="item.name" />
+        <edit-field label="chapters" v-model="item.capitulos" />
+        <edit-field label="category" v-model="item.categoria" />
+        <edit-field label="fansub"   v-model="item.fansub" />
+        <edit-field label="idioma"   v-model="item.idioma" />
+        <div class="modal-footer">
+            <button class="close" v-on:click="$emit('close')">
+              Close
+            </button>
+            <button class="save" v-on:click="save()" :disabled="saveIsDisabled">
+              Save
+            </button>
+            <button class="remove" v-on:click="remove()" v-if="item.id">
+              Delete
+            </button>
         </div>
     </div>
 </template>
+
+<style lang="scss">
+@import '../assets/modal.scss';
+</style>

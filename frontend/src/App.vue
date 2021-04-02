@@ -1,19 +1,54 @@
 <script>
+import loader from './components/loader.vue';
+import axios from 'axios';
+
 export default {
   name: 'App',
+  components: {
+    loader,
+  },
+  data: () => ({
+    isLoading: false,
+  }),
+  mounted: function() {
+    this.enableInterceptor();
+  },
+  methods: {
+    enableInterceptor() {
+        this.axiosInterceptor = axios.interceptors.request.use((config) => {
+            this.isLoading = true;
+            return config;
+        }, (error) => {
+            this.isLoading = false;
+            return Promise.reject(error);
+        })
+        
+        axios.interceptors.response.use((response) => {
+            this.isLoading = false;
+            return response;
+        }, function(error) {
+            this.isLoading = false;
+            return Promise.reject(error);
+        })
+    },
+
+    disableInterceptor() {
+        axios.interceptors.request.eject(this.axiosInterceptor);
+    },
+
+  },
 }
 </script>
 
 <template>
   <div id="app">
     <div id="nav">
-        <div class="title"><router-link to="/">DBS</router-link></div>
-        <ul flex>
-          <li><router-link to="/series">Series</router-link></li>
-          <li><router-link to="/music">Music</router-link></li>
-          <li><router-link to="/wanted">Wanted</router-link></li>
-        </ul>
+        <div class="title"><h1><router-link to="/">DBS</router-link></h1></div>
+        <router-link class="nav-link" to="/series">Series</router-link>
+        <router-link class="nav-link" to="/music">Music</router-link>
+        <router-link class="nav-link" to="/wanted">Wanted</router-link>
     </div>
+    <loader :is-visible="isLoading"></loader>
     <router-view/>
   </div>
 </template>
@@ -47,28 +82,19 @@ html {
         justify-content: center;
     }
 
-    ul {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        justify-content: space-evenly;
+    .nav-link {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      padding-left: 20px;
+      padding-right: 20px;
 
-        li {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-        }
+      &.router-link-exact-active {
+        color: #EEEEEE;
+        background: #AAAAAA;
+      }
 
-    }
-
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-    }
-
-    a.router-link-exact-active {
-      color: #42b983;
     }
 
 }

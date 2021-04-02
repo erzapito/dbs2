@@ -11,6 +11,7 @@ export default {
     'currentPage': 1,
     'search' : '',
     'newElement' : false,
+    'newItem': {},
     'info': {
         items: [],
         total: 0,
@@ -56,20 +57,21 @@ export default {
 
 <template>
   <div class="series-controller controller">
-    <div class="title">Series</div>
-
-    <div class="search">
-        Search:
-        <input type="text" v-model="search" v-on:keyup="delayedLoad()" />
+    
+    <div class="page-header">
+      <div class="search">
+          <input type="text" v-model="search" v-on:keyup="delayedLoad()" placeholder="search" />
+      </div>
+      <div class="new">
+        <button v-on:click="newElement = !newElement">+</button>
+      </div>
     </div>
 
-    <div class="new">
-        <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
-        <series-form
-            v-if="newElement"
-            :item="newItem"
-            v-on:series-saved="setPage(0)" />
-    </div>
+    <series-form
+        v-if="newElement"
+        @close="newElement=false"
+        :item="newItem"
+        v-on:series-saved="setPage(0)" />
 
     <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >

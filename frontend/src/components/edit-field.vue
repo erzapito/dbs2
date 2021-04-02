@@ -1,26 +1,15 @@
 <script>
 export default {
-    props: ['label','field'],
-    data: function() {
-      return {
-        value: '',
-      };
-    },
-    mounted: function(){
-      this.value = this.field;
-    },
-    watch: {
-        field: function(n){
-          this.value = n;
-        },
-    },
+    props: ['label','value'],
 }
 </script>
 
 <template>
     <div class="edit-field">
         <label>{{ label }}</label>
-        <input v-model="value" v-on:keyup="$emit('value-changed',value)" />
+        <input
+            v-bind:value="value"
+            v-on:input="$emit('input', $event.target.value)" />
     </div>
 </template>
 
