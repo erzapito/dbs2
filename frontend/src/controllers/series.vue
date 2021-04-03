@@ -49,6 +49,11 @@ export default {
           .then((response) => {
             this.info.items = response.data.items;
             this.info.total = response.data.total;
+          
+            this.maxPage = Math.floor(response.data.total / 10) + 1;
+            if (this.maxPage < this.currentPage) {
+              this.setPage(this.maxPage);
+            }
           });
     }
   }

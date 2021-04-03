@@ -56,19 +56,21 @@ export default {
 
 <template>
   <div class="music-controller controller">
-    <div class="title">Musica</div>
+    <div class="page-header">
+      <div class="search">
+        <input type="text" v-model="search" v-on:keyup="delayedLoad()" placeholder="Search" />
+      </div>
 
-    <div class="search">
-        <input type="text" v-model="search" v-on:keyup="delayedLoad()" />
+      <div class="new">
+        <button v-on:click="newElement = !newElement">+</button>
+      </div>
     </div>
 
-    <div class="new">
-        <a href="javascript:void(0)" v-on:click="newElement = !newElement">New</a>
-        <music-form
-            v-if="newElement"
-            :item="newItem"
-            v-on:music-saved="setPage(1)" />
-    </div>
+    <music-form
+      v-if="newElement"
+      @close="newElement=false"
+      :item="newItem"
+      v-on:music-saved="setPage(0)" />
 
     <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >

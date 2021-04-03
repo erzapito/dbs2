@@ -28,8 +28,6 @@ export default {
 
 <template>
   <div class="wanted-controller controller">
-    <div class="title">Wanteds</div>
-
     <table class="listing">
         <tr class="headers">
             <th>Id</th>

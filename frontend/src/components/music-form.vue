@@ -49,11 +49,14 @@ export default {
 </script>
 
 <template>
-    <div class="music-edit-form" >
+    <div class="music-edit-form modal" >
         <input v-if="!i.id" class="music-helper" v-model="full"/>
-        <edit-field label="artist" v-bind:field="i.artist" v-on:value-changed="i.artist = $event" />
-        <edit-field label="disc" v-bind:field="i.disc" v-on:value-changed="i.disc = $event" />
-        <div class="buttons">
+        <edit-field label="artist" v-model="i.artist" />
+        <edit-field label="disc"   v-model="i.disc" />
+        <div class="modal-footer">
+            <button class="close" v-on:click="$emit('close')">
+              Close
+            </button>
             <button class="save" v-on:click="save()">Save</button>
             <button class="remove" v-on:click="remove()" v-if="i.id">Delete</button>
         </div>
