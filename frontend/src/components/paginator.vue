@@ -5,11 +5,11 @@ export default {
    
     computed: {
         totalPages: function() {
-            var v = Math.ceil(this.totalItems / this.pageSize) + 1;
-            if (v && this.page >= v) {
-              this.$emit('paginator-page-change',v)
+            var lastPage = parseInt(this.totalItems / this.pageSize) + 1;
+            if (lastPage && this.page > lastPage) {
+              this.$emit('paginator-page-change', lastPage)
             }
-            return v;
+            return lastPage;
         },
     },
 }
