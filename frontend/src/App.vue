@@ -1,6 +1,17 @@
 <script>
 export default {
   name: 'App',
+  data: () => ({
+    loadingCounter: { value: 0},
+  }),
+  created() {
+    window.loadingCounter = this.loadingCounter;
+  },
+  computed: {
+    loading() {
+      return window.loadingCounter.value > 0;
+    }
+  },
 }
 </script>
 
@@ -14,6 +25,9 @@ export default {
           <li><router-link to="/wanted">Wanted</router-link></li>
         </ul>
     </div>
+    <div class="loading" v-show="loading">
+      <img src="@/assets/loading.gif" />
+    </div>
     <router-view/>
   </div>
 </template>
@@ -23,6 +37,39 @@ export default {
 
 html {
     padding: 0px;
+}
+
+.form-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #0008;
+  top: 0px;
+
+  .dialog-form {
+    position: relative;
+    background: #BFB;
+    top: calc( 50vh - 75px );
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+  }
+}
+
+.loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #0008;
+  top: 0;
+  
+  img {
+    width: 32px;
+    height: 32px;
+    top: calc( 50vh - 16px );
+    position: relative;
+  }
 }
 
 #app {

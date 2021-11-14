@@ -49,7 +49,8 @@ export default {
 </script>
 
 <template>
-    <div class="music-edit-form" >
+  <div class="form-container">
+    <div class="music-edit-form dialog-form" >
         <input v-if="!i.id" class="music-helper" v-model="full"/>
         <edit-field label="artist" v-bind:field="i.artist" v-on:value-changed="i.artist = $event" />
         <edit-field label="disc" v-bind:field="i.disc" v-on:value-changed="i.disc = $event" />
@@ -58,4 +59,5 @@ export default {
             <button class="remove" v-on:click="remove()" v-if="i.id">Delete</button>
         </div>
     </div>
+  </div>
 </template>

@@ -10,7 +10,7 @@ const wantedResponse = require('./mocks/wantedResponse');
 
 module.exports = function(app) {
     // series
-    app.get('/api/series', function(req, res){
+    app.get('/dbs2/api/series', function(req, res){
         if (!req.query.page) {
             res.json(seriesResponse0);
         } else if (req.query.page == 0) {
@@ -21,18 +21,18 @@ module.exports = function(app) {
             res.json(seriesResponse2)
         }
     });
-    app.post('/api/series', function(req,res){
+    app.post('/dbs2/api/series', function(req,res){
         res.json();
     });
-    app.delete('/api/series/*', function(req,res){
+    app.delete('/dbs2/api/series/*', function(req,res){
         res.json();
     });
-    app.put('/api/series/*', function(req,res){
+    app.put('/dbs2/api/series/*', function(req,res){
         res.json();
     });
 
     // music
-    app.get('/api/music', function(req, res){
+    app.get('/dbs2/api/music', function(req, res){
         if (!req.query.page) {
             res.json(musicResponse0);
         } else if (req.query.page == 0) {
@@ -43,18 +43,18 @@ module.exports = function(app) {
             res.json(musicResponse2)
         }
     });
-    app.post('/api/music', function(req,res){
+    app.post('/dbs2/api/music', function(req,res){
         res.json();
     });
-    app.delete('/api/music/*', function(req,res){
+    app.delete('/dbs2/api/music/*', function(req,res){
         res.json();
     });
-    app.put('/api/music/*', function(req,res){
+    app.put('/dbs2/api/music/*', function(req,res){
         res.json();
     });
 
     // wanted
-    app.get('/api/wanted', function(req, res) {
+    app.get('/dbs2/api/wanted', function(req, res) {
         res.json(wantedResponse);
     });
 };

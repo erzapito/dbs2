@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import axios from 'axios';
+import networking from './networking';
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = process.env.BASE_URL;
 
 new Vue({
   router,
+  networking,
   render: h => h(App)
 }).$mount('#app')

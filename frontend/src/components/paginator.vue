@@ -5,7 +5,11 @@ export default {
    
     computed: {
         totalPages: function() {
-            return Math.ceil(this.totalItems / this.pageSize);
+            var v = Math.ceil(this.totalItems / this.pageSize) + 1;
+            if (v && this.page >= v) {
+              this.$emit('paginator-page-change',v)
+            }
+            return v;
         },
     },
 }

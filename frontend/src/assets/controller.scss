@@ -1,5 +1,5 @@
 .controller {
-    max-width: 400px;
+//    max-width: 400px;
     .title {
         font-size: xx-large;
         padding: 20px;
@@ -9,12 +9,17 @@
         display: flex;
         flex-wrap: wrap;
         padding: 5px;
+        text-align: left;
        
         .content {
             display: flex;
 
             .id {
+                width: 50px;
                 padding-right: 5px;
+            }
+            a {
+                width: 300px;
             }
         }
         .edit {

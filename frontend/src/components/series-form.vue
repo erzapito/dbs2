@@ -34,7 +34,8 @@ export default {
 </script>
 
 <template>
-    <div class="series-edit" >
+  <div class="form-container">
+    <div class="series-edit dialog-form" >
         <edit-field label="name" v-bind:field="item.name" />
         <edit-field label="chapters" v-bind:field="item.capitulos" />
         <edit-field label="category" v-bind:field="item.categoria" />
@@ -45,4 +46,5 @@ export default {
             <button class="remove" v-on:click="remove()" v-if="item.id">Delete</button>
         </div>
     </div>
+  </div>
 </template>
