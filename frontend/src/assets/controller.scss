@@ -1,5 +1,12 @@
 .controller {
-//    max-width: 400px;
+    max-width: 500px;
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .title {
         font-size: xx-large;
         padding: 20px;
@@ -15,16 +22,14 @@
             display: flex;
 
             .id {
-                width: 50px;
-                padding-right: 5px;
+                width: 70px;
+                color: #777777;
+                text-align: right;
+                padding-right: 10px;
             }
             a {
                 width: 300px;
             }
-        }
-        .edit {
-            display: flex;
-            flex-wrap: wrap;
         }
     }
 

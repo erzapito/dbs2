@@ -24,6 +24,7 @@ export default {
         <series-form
             class="edit"
             v-if="editing"
+            @close="editing=false"
             :item="item"
             v-on:series-saved="$emit('reload-series')"
             v-on:series-deleted="$emit('reload-series')" />

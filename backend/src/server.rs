@@ -3,6 +3,7 @@
 use crate::config::CONFIG;
 use crate::database::add_pool;
 use crate::routes::routes;
+use actix_cors::Cors;
 use actix_web::{middleware::Logger, App, HttpServer};
 use listenfd::ListenFd;
 
@@ -18,6 +19,7 @@ pub async fn server() -> std::io::Result<()> {
     let mut server = HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
+            .wrap(Cors::new().max_age(3600).finish())
             .configure(add_pool)
             .configure(routes)
     });
