@@ -25,7 +25,7 @@ export default {
                     this.$emit('series-saved',this.item);
                 });
             } else {
-                axios.post('api/series/', this.item).then(() => {
+                axios.post('api/series', this.item).then(() => {
                     this.$emit('series-saved',this.item);
                 });
             }

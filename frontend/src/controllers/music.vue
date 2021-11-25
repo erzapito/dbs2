@@ -70,7 +70,7 @@ export default {
       v-if="newElement"
       @close="newElement=false"
       :item="newItem"
-      v-on:music-saved="setPage(0)" />
+      v-on:music-saved="setPage(1)" />
 
     <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >

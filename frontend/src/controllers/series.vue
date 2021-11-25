@@ -37,7 +37,13 @@ export default {
         this.loadCurrentPage();
     },
     loadCurrentPage: function() {
-        this.newItem = {};
+        this.newItem = {
+          "name": "",
+          "capitulos": "",
+          "categoria": "",
+          "fansub": "",
+          "idioma": "",
+        };
         this.newElement = false;
         axios
           .get('api/series', {
@@ -76,7 +82,7 @@ export default {
         v-if="newElement"
         @close="newElement=false"
         :item="newItem"
-        v-on:series-saved="setPage(0)" />
+        v-on:series-saved="setPage(1)" />
 
     <ul class="listing">
         <li v-for="item in info.items" v-bind:key="item.id" >
