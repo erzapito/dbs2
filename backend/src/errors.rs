@@ -71,6 +71,7 @@ impl From<Vec<String>> for ErrorResponse {
 /// Convert DBErrors to ApiErrors
 impl From<DBError> for ApiError {
     fn from(error: DBError) -> ApiError {
+         println!("HERE I MAN");
         // Right now we just care about UniqueViolation from diesel
         // But this would be helpful to easily map errors as our app grows
         match error {
@@ -79,6 +80,7 @@ impl From<DBError> for ApiError {
                     let message = info.details().unwrap_or_else(|| info.message()).to_string();
                     return ApiError::BadRequest(message);
                 }
+                //println!("**{}**", info);
                 ApiError::InternalServerError("Unknown database error".into())
             }
             _ => ApiError::InternalServerError("Unknown database error".into()),
